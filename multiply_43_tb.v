@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   12:55:04 05/01/2017
-// Design Name:   wallace_tree_multiplier
-// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/wallace_tb.v
+// Create Date:   10:16:05 05/04/2017
+// Design Name:   multiply_by_43
+// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/multiply_43_tb.v
 // Project Name:  dsd_project
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: wallace_tree_multiplier
+// Verilog Test Fixture created by ISE for module: multiply_by_43
 //
 // Dependencies:
 // 
@@ -22,53 +22,43 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module wallace_tb;
+module multiply_43_tb;
 
 	// Inputs
-	reg [8:0] x;
-	reg [3:0] y;
-	reg clk;
+	reg [20:0] x;
 
 	// Outputs
-	wire [12:0] product;
+	wire [29:0] y;
 
 	// Instantiate the Unit Under Test (UUT)
-	wallace_tree_multiplier uut (
+	multiply_by_43 uut (
 		.x(x), 
-		.y(y), 
-		.clk(clk), 
-		.product(product)
+		.y(y)
 	);
-always
-#10 clk = ~clk;
+
 	initial begin
 		// Initialize Inputs
 		x = 0;
-		y = 0;
-		clk = 0;
 
 		// Wait 100 ns for global reset to finish
-		#50;
-      x = 10;
-		y = 1;  
-		
+		#100;
+      
+x = 21'd1;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+x = 21'd2;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        
+x = 21'd10;
+
+		// Wait 100 ns for global reset to finish
+		#100;
+        		  
 		// Add stimulus here
-		#50;
-      x = 17;
-		y = 2;  
-		#50;
-      x = 5;
-		y = 5;  
-		#50;
-      x = 100;
-		y = 6;  
-		#50;
-      x = 6;
-		y = 6;  
-		#50;
-      x = 2;
-		y = 6;  
-		
 
 	end
       

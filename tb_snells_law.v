@@ -4,71 +4,66 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   12:55:04 05/01/2017
-// Design Name:   wallace_tree_multiplier
-// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/wallace_tb.v
+// Create Date:   23:28:59 04/19/2017
+// Design Name:   snell_law
+// Module Name:   E:/XilinxProjects/dsd_project/dsd_project/tb_snells_law.v
 // Project Name:  dsd_project
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: wallace_tree_multiplier
+// Verilog Test Fixture created by ISE for module: snell_law
 //
 // Dependencies:
-// 
+//  
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module wallace_tb;
+module tb_snells_law;
 
 	// Inputs
-	reg [8:0] x;
-	reg [3:0] y;
+	reg [3:0] n2;
+	reg [6:0]theeta1;
+	reg [6:0]theeta2;
 	reg clk;
+	reg rst;
 
 	// Outputs
-	wire [12:0] product;
+	wire [3:0] n1;
 
 	// Instantiate the Unit Under Test (UUT)
-	wallace_tree_multiplier uut (
-		.x(x), 
-		.y(y), 
+	snell_law uut (
+		.n2(n2), 
+		.theeta1(theeta1), 
+		.theeta2(theeta2), 
 		.clk(clk), 
-		.product(product)
+		.rst(rst), 
+		.n1(n1)
 	);
 always
-#10 clk = ~clk;
+#5 clk = ~clk;
 	initial begin
 		// Initialize Inputs
-		x = 0;
-		y = 0;
+		n2 = 0;
+		theeta1 = 0;
+		theeta2 = 0;
 		clk = 0;
+		rst = 1;
 
 		// Wait 100 ns for global reset to finish
-		#50;
-      x = 10;
-		y = 1;  
 		
+		#100;
+      rst = 0;
+		n2 = 4'd11;
+		theeta1 = 7'd1;
+		theeta2 = 7'd1;
+		
+	
+		  
 		// Add stimulus here
-		#50;
-      x = 17;
-		y = 2;  
-		#50;
-      x = 5;
-		y = 5;  
-		#50;
-      x = 100;
-		y = 6;  
-		#50;
-      x = 6;
-		y = 6;  
-		#50;
-      x = 2;
-		y = 6;  
-		
 
 	end
       

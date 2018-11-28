@@ -19,18 +19,96 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module snell_law(
-    input [3:0]n2,  	//q2.2
-    input [6:0]theeta1,	//q7.0
-    input [6:0]theeta2,	//q7.0
+    input out_sel,
+	 input n2_sel,
+	 input t1_sel,
+	 input t2_sel,
+	 input [6:0]input_port,
     input clk,
     input rst,
-    output [3:0]n1 //q2.2
+    output reg[6:0]output_port //q2.2
     );
+
+reg [3:0]n2;  	//q2.2
+reg [6:0]theeta1;	//q7.0
+reg [6:0]theeta2;	//q7.0
 
 wire [8:0]sin_theeta1, sin_theeta2; //q1.8
 wire [12:0]multiply_ans, sin_theeta1_ext, n11, frac;
 wire rfd;
 wire [1:0]shift_reg;
+wire [3:0]n1;
+
+
+always@(posedge clk)
+begin
+	if(n2_sel == 1'd1)
+	begin
+		n2[0] <= input_port[0];
+		n2[1] <= input_port[1];
+		n2[2] <= input_port[2];
+		n2[3] <= input_port[3];
+		
+		output_port[0] <= n2[0];
+		output_port[1] <= n2[1];
+		output_port[2] <= n2[2];
+		output_port[3] <= n2[3];
+		output_port[4] <= 1'd0;
+		output_port[5] <= 1'd0;
+		output_port[6] <= 1'd0;
+	end
+	
+	else if(t1_sel == 1'd1)
+	begin
+		theeta1[0] <= input_port[0];
+		theeta1[1] <= input_port[1];
+		theeta1[2] <= input_port[2];
+		theeta1[3] <= input_port[3];
+		theeta1[4] <= input_port[4];
+		theeta1[5] <= input_port[5];
+		theeta1[6] <= input_port[6];
+		
+		output_port[0] <= theeta1[0];
+		output_port[1] <= theeta1[1];
+		output_port[2] <= theeta1[2];
+		output_port[3] <= theeta1[3];
+		output_port[4] <= theeta1[4];
+		output_port[5] <= theeta1[5];
+		output_port[6] <= theeta1[6];
+	end
+	
+	else if(t2_sel == 1'd1)
+	begin
+		theeta2[0] <= input_port[0];
+		theeta2[1] <= input_port[1];
+		theeta2[2] <= input_port[2];
+		theeta2[3] <= input_port[3];
+		theeta2[4] <= input_port[4];
+		theeta2[5] <= input_port[5];
+		theeta2[6] <= input_port[6];
+		
+		output_port[0] <= theeta2[0];
+		output_port[1] <= theeta2[1];
+		output_port[2] <= theeta2[2];
+		output_port[2] <= theeta2[2];
+		output_port[3] <= theeta2[3];
+		output_port[4] <= theeta2[4];
+		output_port[5] <= theeta2[5];
+		output_port[6] <= theeta2[6];
+	end
+	
+	else if(out_sel == 1'd1)
+	begin
+		output_port[0] <= n1[0];
+		output_port[1] <= n1[1];
+		output_port[2] <= n1[2];
+		output_port[3] <= n1[3];
+		output_port[4] <= 1'd0;
+		output_port[5] <= 1'd0;
+		output_port[6] <= 1'd0;
+	end
+end
+
 sine s1(.x(theeta1), .clk(clk), .rst(rst), .y(sin_theeta1));
 sine s2(.x(theeta2), .clk(clk), .rst(rst), .y(sin_theeta2));
 
@@ -61,11 +139,7 @@ divider_core2 d1 (
 
 //assign n1 = n11;
 
-/*assign n1[0] = frac[0]; 
-assign n1[1] = frac[1];
-assign n1[2] = n11[0];
-assign n1[3] = n11[1];
-*/
 assign n1 = n11;
+
 
 endmodule

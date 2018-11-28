@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   12:55:04 05/01/2017
-// Design Name:   wallace_tree_multiplier
-// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/wallace_tb.v
+// Create Date:   23:18:09 04/19/2017
+// Design Name:   divide_algo
+// Module Name:   E:/XilinxProjects/dsd_project/dsd_project/tb_divide_algo.v
 // Project Name:  dsd_project
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: wallace_tree_multiplier
+// Verilog Test Fixture created by ISE for module: divide_algo
 //
 // Dependencies:
 // 
@@ -22,53 +22,43 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module wallace_tb;
+module tb_divide_algo;
 
 	// Inputs
-	reg [8:0] x;
-	reg [3:0] y;
+	reg [15:0] dividend;
+	reg [15:0] divider;
 	reg clk;
+	reg rst;
 
 	// Outputs
-	wire [12:0] product;
+	wire [15:0] quo;
+	wire [15:0] rem;
 
 	// Instantiate the Unit Under Test (UUT)
-	wallace_tree_multiplier uut (
-		.x(x), 
-		.y(y), 
+	divide_algo uut (
+		.dividend(dividend), 
+		.divider(divider), 
 		.clk(clk), 
-		.product(product)
+		.rst(rst), 
+		.quo(quo), 
+		.rem(rem)
 	);
-always
-#10 clk = ~clk;
+
+always 
+#5 clk = ~clk;
 	initial begin
 		// Initialize Inputs
-		x = 0;
-		y = 0;
+		dividend = 0;
+		divider = 0;
 		clk = 0;
+		rst = 1;
 
 		// Wait 100 ns for global reset to finish
-		#50;
-      x = 10;
-		y = 1;  
-		
+		#100;
+      rst = 0;  
+		dividend = 16'd4;
+		divider = 16'd2;
 		// Add stimulus here
-		#50;
-      x = 17;
-		y = 2;  
-		#50;
-      x = 5;
-		y = 5;  
-		#50;
-      x = 100;
-		y = 6;  
-		#50;
-      x = 6;
-		y = 6;  
-		#50;
-      x = 2;
-		y = 6;  
-		
 
 	end
       

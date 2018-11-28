@@ -4,15 +4,15 @@
 // Company: 
 // Engineer:
 //
-// Create Date:   12:55:04 05/01/2017
-// Design Name:   wallace_tree_multiplier
-// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/wallace_tb.v
+// Create Date:   13:12:04 05/24/2017
+// Design Name:   division_mod
+// Module Name:   D:/XilinxProjects/dsd_project/dsd_project/tb_divider_core.v
 // Project Name:  dsd_project
 // Target Device:  
 // Tool versions:  
 // Description: 
 //
-// Verilog Test Fixture created by ISE for module: wallace_tree_multiplier
+// Verilog Test Fixture created by ISE for module: division_mod
 //
 // Dependencies:
 // 
@@ -22,53 +22,52 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module wallace_tb;
+module tb_divider_core;
 
 	// Inputs
-	reg [8:0] x;
-	reg [3:0] y;
+	reg [15:0] inp1;
+	reg [15:0] inp2;
 	reg clk;
 
 	// Outputs
-	wire [12:0] product;
+	wire [15:0] oup;
+	wire [15:0] frac;
+	wire rfd;
 
 	// Instantiate the Unit Under Test (UUT)
-	wallace_tree_multiplier uut (
-		.x(x), 
-		.y(y), 
+	division_mod uut (
+		.inp1(inp1), 
+		.inp2(inp2), 
 		.clk(clk), 
-		.product(product)
+		.oup(oup), 
+		.frac(frac), 
+		.rfd(rfd)
 	);
 always
-#10 clk = ~clk;
+ #5 clk = ~clk;
 	initial begin
 		// Initialize Inputs
-		x = 0;
-		y = 0;
+		inp1 = 0;
+		inp2 = 0;
 		clk = 0;
 
 		// Wait 100 ns for global reset to finish
-		#50;
-      x = 10;
-		y = 1;  
+		#100;
 		
+		inp1 = 10;
+		inp2 = 2;
+		
+		#100;
+		
+		inp1 = 8;
+		inp2 = 2;
+		
+		#100;
+		
+		inp1 = 10;
+		inp2 = 3;
+        
 		// Add stimulus here
-		#50;
-      x = 17;
-		y = 2;  
-		#50;
-      x = 5;
-		y = 5;  
-		#50;
-      x = 100;
-		y = 6;  
-		#50;
-      x = 6;
-		y = 6;  
-		#50;
-      x = 2;
-		y = 6;  
-		
 
 	end
       

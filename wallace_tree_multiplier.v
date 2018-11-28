@@ -25,12 +25,15 @@ module wallace_tree_multiplier(input [8:0]x,
  
 				reg  [8:0]p[3:0];                  // array which stores the partial products
 				wire [27:0] s ,c ;                 //iintermediate sum and carry
-				
-				
-				
+				integer i,j;
+
 				always@(x or y)            //x is multiplicand AND y is multiplier
 				begin
-						// creating the partial products.	
+						// creating the partial products.
+
+						/*for ( i = 0; i <= 3; i = i + 1)
+							for ( j = 0; j <= 8; j = j + 1)
+							p[i][j] <= x[j] & y[i];*/
 							
 						p[0][0] <= x[0] & y[0];
 						p[0][1] <= x[1] & y[0];
